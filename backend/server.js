@@ -44,8 +44,6 @@ async function startServer() {
   }
 }
 
-startServer();
-
 // routing
 // LLM API ROUTING to all /LLM endpoints
 app.use("/LLM", LLM_API_ROUTES);
@@ -54,3 +52,5 @@ app.use("/LLM", LLM_API_ROUTES);
 app.use((req, res) => {
   res.status(404);
 });
+
+startServer();
