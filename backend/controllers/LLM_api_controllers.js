@@ -72,6 +72,7 @@ const AIGeneration = async (req, res) => {
       await redisClient.expire(redisKey, 3600);
 
       // Use Gemini for Images
+
     } else {
       prompt += `Instructions: ${geminiInstructions}`;
       const prompt_parts = [
