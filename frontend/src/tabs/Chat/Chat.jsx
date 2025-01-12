@@ -147,6 +147,8 @@ const Chat = () => {
             context: pageText,
             ...(currentSessionKey && { sessionID: currentSessionKey })
         };
+
+        console.log(body);
     
         setBase64image("");
         fetch(import.meta.env.VITE_API_URL + `/LLM`, {
