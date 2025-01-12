@@ -17,7 +17,7 @@ RUN npm ci --only=production
 COPY --chown=node:node . .
 
 # Expose the backend port
-EXPOSE 5000
+EXPOSE 10000
 
 # Set environment variables
 ENV NODE_ENV=production
