@@ -39,6 +39,10 @@ app.use((req, res) => {
   res.status(404);
 });
 
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
+
 // Initalize redis client with err handling
 async function startServer() {
   try {
