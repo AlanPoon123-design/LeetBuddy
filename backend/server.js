@@ -30,6 +30,15 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
+// routing
+// LLM API ROUTING to all /LLM endpoints
+app.use("/LLM", LLM_API_ROUTES);
+
+// 404 error catching
+app.use((req, res) => {
+  res.status(404);
+});
+
 // Initalize redis client with err handling
 async function startServer() {
   try {
@@ -43,14 +52,5 @@ async function startServer() {
     process.exit(1);
   }
 }
-
-// routing
-// LLM API ROUTING to all /LLM endpoints
-app.use("/LLM", LLM_API_ROUTES);
-
-// 404 error catching
-app.use((req, res) => {
-  res.status(404);
-});
 
 startServer();
