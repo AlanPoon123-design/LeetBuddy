@@ -18,6 +18,18 @@ const port = process.env.PORT || 5000;
 app.use(express.json({ limit: "4mb" }));
 app.use(express.urlencoded({ limit: "4mb", extended: true }));
 
+// middleware
+const corsOptions = {
+  origin: (origin, callback) => {
+    callback(null, true); // Allow requests from any origin
+  },
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
+
 // Initalize redis client with err handling
 async function startServer() {
   try {
@@ -33,18 +45,6 @@ async function startServer() {
 }
 
 startServer();
-
-// middleware
-const corsOptions = {
-  origin: (origin, callback) => {
-    callback(null, true); // Allow requests from any origin
-  },
-  credentials: true,
-  optionSuccessStatus: 200,
-};
-
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
 
 // routing
 // LLM API ROUTING to all /LLM endpoints
