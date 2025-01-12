@@ -13,9 +13,10 @@ const { initializeRedisClient } = require("./services/LLM_config.js");
 
 // APP INITIALIZATION
 const app = express();
+
 const port = process.env.PORT || 5000;
-app.use(express.json({ limit: '4mb' }));
-app.use(express.urlencoded({ limit: '4mb', extended: true }));
+app.use(express.json({ limit: "4mb" }));
+app.use(express.urlencoded({ limit: "4mb", extended: true }));
 
 // Initalize redis client with err handling
 async function startServer() {
