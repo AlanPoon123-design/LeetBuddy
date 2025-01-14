@@ -62,7 +62,7 @@ function App() {
         <div className="tabs-container flex justify-between">
           {/* Add logo here also */}
           <button className="tab-button donate-button flex items-center gap-1" onClick={(e) => {
-              window.location.href = "https://buymeacoffee.com/leetbuddy";
+              chrome.tabs.create({ url: "https://buymeacoffee.com/leetbuddy" });
             }}>
               <FaMoneyBill/>
               Donate
