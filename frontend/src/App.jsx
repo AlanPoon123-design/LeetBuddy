@@ -2,7 +2,7 @@ import Chat from "./tabs/Chat/Chat";
 import Whiteboard from "./tabs/Whiteboard/Whiteboard";
 import { useState, useEffect, useContext } from "react";
 import { Context } from './Store';
-import { FaDisplay, FaDrawPolygon } from "react-icons/fa6";
+import { FaDisplay, FaDrawPolygon, FaMoneyBill } from "react-icons/fa6";
 import laptopLogo from "./assets/LBLOGOlaptop.png";
 
 function App() {
@@ -59,20 +59,30 @@ function App() {
           height: `${height}px`,
           width: `${page == "chat" ? width_chat : width_whiteboard}px`,
         }}>
-        <div className="tabs-container flex gap-1 justify-end">
+        <div className="tabs-container flex justify-between">
           {/* Add logo here also */}
-          <button className="tab-button flex items-center gap-1" onClick={(e) => {
-            setPage("chat");
-          }}>
-            <FaDisplay/>
-            Chat
+          <button className="tab-button donate-button flex items-center gap-1" onClick={(e) => {
+              window.location.href = "https://buymeacoffee.com/leetbuddy";
+            }}>
+              <FaMoneyBill/>
+              Donate
           </button>
-          <button className="tab-button flex items-center gap-1" onClick={(e) => {
-            setPage("draw");
-          }}>
-            <FaDrawPolygon/>
-            Draw
-          </button>
+
+          <div className="tabs-container flex gap-1">
+            <button className="tab-button flex items-center gap-1" onClick={(e) => {
+              setPage("chat");
+            }}>
+              <FaDisplay/>
+              Chat
+            </button>
+            <button className="tab-button flex items-center gap-1" onClick={(e) => {
+              setPage("draw");
+            }}>
+              <FaDrawPolygon/>
+              Draw
+            </button>
+          </div>
+          
         </div>
         
         <div className="mt-1 flex-grow">
