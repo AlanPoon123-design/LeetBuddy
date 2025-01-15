@@ -9,8 +9,7 @@
     "permissions": [
       "scripting",
       "activeTab",
-      "storage",
-      "cookies"
+      "storage"
     ],
     "host_permissions": [
       "https://leetcode.com/problems/*",
