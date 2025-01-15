@@ -68,6 +68,15 @@
    background-color: var(--color-gray-3);
 }
 
+.donate-button, .donate-button * {
+  background-color: var(--color-gold-3);
+  color: var(--color-gold-1);
+}
+
+.donate-button:hover {
+  background-color: #453317;
+}
+
 .main-display-box {
     border-radius: var(--corner-radius);
     background-color: var(--color-gray-2);

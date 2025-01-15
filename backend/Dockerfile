@@ -16,6 +16,8 @@ RUN npm ci --only=production
 # Copy application code with correct ownership
 COPY --chown=node:node . .
 
+ENV PORT=10000
+
 # Expose the backend port
 EXPOSE 10000
 

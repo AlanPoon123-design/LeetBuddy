@@ -14,25 +14,9 @@ const { initializeRedisClient } = require("./services/LLM_config.js");
 // APP INITIALIZATION
 const app = express();
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 10000;
 app.use(express.json({ limit: "4mb" }));
 app.use(express.urlencoded({ limit: "4mb", extended: true }));
-
-// Initalize redis client with err handling
-async function startServer() {
-  try {
-    await initializeRedisClient();
-
-    app.listen(port, () => {
-      console.log(`Server started on port: ${port}`);
-    });
-  } catch (err) {
-    console.error("Failed to start server:", err);
-    process.exit(1);
-  }
-}
-
-startServer();
 
 // middleware
 const corsOptions = {
@@ -54,3 +38,23 @@ app.use("/LLM", LLM_API_ROUTES);
 app.use((req, res) => {
   res.status(404);
 });
+
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
+
+// Initalize redis client with err handling
+async function startServer() {
+  try {
+    await initializeRedisClient();
+
+    app.listen(port, "0.0.0.0", () => {
+      console.log(`Server started on port: ${port}`);
+    });
+  } catch (err) {
+    console.error("Failed to start server:", err);
+    process.exit(1);
+  }
+}
+
+startServer();

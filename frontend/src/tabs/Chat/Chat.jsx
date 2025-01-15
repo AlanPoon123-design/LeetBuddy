@@ -115,7 +115,6 @@ const Chat = () => {
                             sessionStorage.setItem('sessionKey', key);
                             setSessionKey(key);
                             currentSessionKey = key;
-                            console.log("Generated new key:", key);
                         }
                     }
                     resolve();
@@ -140,13 +139,17 @@ const Chat = () => {
         if (base64image.length > 0) {
             formattedimage = base64image?.replace(/^data:image\/\w+;base64,/, '');
         }
-    
+        
         const body = { 
             question: inputtext, 
             image: formattedimage, 
             context: pageText,
             ...(currentSessionKey && { sessionID: currentSessionKey })
         };
+
+        if (IN_DEV_MODE) {
+            body.sessionID = "test";
+        }
     
         setBase64image("");
         fetch(import.meta.env.VITE_API_URL + `/LLM`, {
@@ -186,8 +189,6 @@ const Chat = () => {
         
         // Calculate new height (limited to max height)
         const newHeight = Math.min(e.target.scrollHeight, 200);
-
-        console.log(newHeight);
         
         // Set the new height
         e.target.style.height = `${newHeight}px`;
