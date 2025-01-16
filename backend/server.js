@@ -7,8 +7,8 @@
 // IMPORTS
 const express = require("express");
 const rateLimit = require("express-rate-limit");
-// const cron = require('node-cron');
-// const axios = require('axios');
+const cron = require('node-cron');
+const axios = require('axios');
 require("dotenv").config();
 const LLM_API_ROUTES = require("./routes/LLM_api_routes.js");
 const cors = require("cors");
@@ -40,7 +40,7 @@ const getClientIp = (req) => {
 
 const promptLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // for 15 min
-  max: 1, //limit each ip to this many req
+  max: 20, //limit each ip to this many req
   keyGenerator: (req) => getClientIp(req),
   message: JSON.stringify({ res: "Too many requests, please try again later" })
 })
@@ -50,19 +50,20 @@ const promptLimiter = rateLimit({
 app.use("/LLM", promptLimiter);
 app.use("/LLM", LLM_API_ROUTES);
 
-// app.get('/refresh', (req, res) => {
-//   res.status(200).send("OK");
-// });
+// cron job to keep the server up
+app.get('/refresh', (req, res) => {
+  res.status(200).send("OK");
+});
 
-// cron.schedule('*/15 * * * *', async () => {
-//   try {
-//       console.log('Triggering /refresh');
-//       const response = await axios.get(`${process.env.URL}/refresh`);
-//       console.log('Response:', response.data);
-//   } catch (error) {
-//       console.error('Error triggering path:', error.message);
-//   }
-// });
+cron.schedule('*/14 * * * *', async () => {
+  try {
+      console.log('Triggering /refresh');
+      const response = await axios.get(`${process.env.URL}/refresh`);
+      console.log('Response:', response.data);
+  } catch (error) {
+      console.error('Error triggering path:', error.message);
+  }
+});
 
 // 404 error catching
 app.use((req, res) => {
