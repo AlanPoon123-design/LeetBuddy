@@ -6,6 +6,9 @@
 
 // IMPORTS
 const express = require("express");
+const rateLimit = require("express-rate-limit");
+// const cron = require('node-cron');
+// const axios = require('axios');
 require("dotenv").config();
 const LLM_API_ROUTES = require("./routes/LLM_api_routes.js");
 const cors = require("cors");
@@ -30,9 +33,36 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 
+const getClientIp = (req) => {
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  return ip.split(',')[0].trim();
+};
+
+const promptLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // for 15 min
+  max: 1, //limit each ip to this many req
+  keyGenerator: (req) => getClientIp(req),
+  message: JSON.stringify({ res: "Too many requests, please try again later" })
+})
+
 // routing
 // LLM API ROUTING to all /LLM endpoints
+app.use("/LLM", promptLimiter);
 app.use("/LLM", LLM_API_ROUTES);
+
+// app.get('/refresh', (req, res) => {
+//   res.status(200).send("OK");
+// });
+
+// cron.schedule('*/15 * * * *', async () => {
+//   try {
+//       console.log('Triggering /refresh');
+//       const response = await axios.get(`${process.env.URL}/refresh`);
+//       console.log('Response:', response.data);
+//   } catch (error) {
+//       console.error('Error triggering path:', error.message);
+//   }
+// });
 
 // 404 error catching
 app.use((req, res) => {
