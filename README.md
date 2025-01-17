@@ -20,6 +20,10 @@ LeetBuddy was inspired by the struggles we faced as students in a software backg
 - **Docker:** Containerized backend deployment
 - **Render:** Host the backend live
 
+## Video Showcase
+
+[Trailer](https://www.youtube.com/watch?v=C0LFu33aKLo)
+
 ### Credits
 
 - **Brian Manomaisupat:** Frontend, session management
