@@ -7,8 +7,8 @@
 // IMPORTS
 const express = require("express");
 const rateLimit = require("express-rate-limit");
-const cron = require('node-cron');
-const axios = require('axios');
+// const cron = require('node-cron');
+// const axios = require('axios');
 require("dotenv").config();
 const LLM_API_ROUTES = require("./routes/LLM_api_routes.js");
 const cors = require("cors");
@@ -55,15 +55,15 @@ app.get('/refresh', (req, res) => {
   res.status(200).send("OK");
 });
 
-cron.schedule('*/14 * * * *', async () => {
-  try {
-      console.log('Triggering /refresh');
-      const response = await axios.get(`${process.env.URL}/refresh`);
-      console.log('Response:', response.data);
-  } catch (error) {
-      console.error('Error triggering path:', error.message);
-  }
-});
+// cron.schedule('*/14 * * * *', async () => {
+//   try {
+//       console.log('Triggering /refresh');
+//       const response = await axios.get(`${process.env.URL}/refresh`);
+//       console.log('Response:', response.data);
+//   } catch (error) {
+//       console.error('Error triggering path:', error.message);
+//   }
+// });
 
 // 404 error catching
 app.use((req, res) => {
