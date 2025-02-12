@@ -102,7 +102,7 @@ const Chat = () => {
                         return;
                     }
             
-                    const regex = /^https:\/\/leetcode\.com\/problems\/([a-zA-Z][a-zA-Z-]*)/;
+                    const regex = /^https:\/\/leetcode\.com\/problems\/([a-zA-Z0-9][a-zA-Z0-9-]*)/;
                     const match = currentUrl.match(regex);
             
                     if (match) {
