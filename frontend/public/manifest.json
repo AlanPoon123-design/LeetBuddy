@@ -1,9 +1,9 @@
 {
     "manifest_version": 3,
-    "version": "1.0.0",
+    "version": "1.0.2",
     "name": "LeetBuddy",
     "action": {
-      "default_icon": "lb_icon_head.png",
+      "default_icon": "favicon-Photoroom.png",
       "default_popup": "index.html"
     },
     "permissions": [

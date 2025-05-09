@@ -3,7 +3,7 @@ import Whiteboard from "./tabs/Whiteboard/Whiteboard";
 import { useState, useEffect, useContext } from "react";
 import { Context } from './Store';
 import { FaDisplay, FaDrawPolygon, FaMoneyBill } from "react-icons/fa6";
-import laptopLogo from "./assets/LBLOGOlaptop.png";
+import laptopLogo from "./assets/leetbuddy-new.png";
 
 function App() {
   // base design here for universal layout, then add the chat and whiteboard jsx files when tab is changed
@@ -95,7 +95,7 @@ function App() {
             src={laptopLogo}
             alt="Laptop Logo"
             className="mb-4 leetbuddy-icon-shadow"
-            style={{ width: "150px", height: "auto" }}
+            style={{ width: "200px", height: "auto" }}
           />
           <p className="text-xl">
           ✦ Open a LeetCode question to get started! ✦

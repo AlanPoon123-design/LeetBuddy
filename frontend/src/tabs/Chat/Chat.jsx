@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useContext } from 'react';
 import LLMOutputDisplay from '../../components/LLMOutputDisplay';
 import { Context } from '../../Store';
 import { collectPageContent } from './collectPageContent.js';
-import laptopLogo from '../../assets/LBLOGOlaptop.png';
+import laptopLogo from '../../assets/leetbuddy-new.png';
 import { v4 as uuidv4 } from 'uuid';
 
 const Chat = () => {
@@ -247,7 +247,7 @@ const Chat = () => {
                                 src={laptopLogo}
                                 alt="Laptop Logo"
                                 className="mb-4 leetbuddy-icon-shadow"
-                                style={{ width: "150px", height: "auto" }}
+                                style={{ width: "200px", height: "auto" }}
                             />
                             <div className="greeting-text text-center text-xl">
                                 Great to see you! <br /> How may I assist you today?
