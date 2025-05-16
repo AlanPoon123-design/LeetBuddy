@@ -13,9 +13,9 @@
     "__BACKEND_PERMISSIONS__"
   ],
   "icons": {
-    "16": "lb_icon_head.png",
-    "32": "lb_icon_head.png",
-    "128": "lb_icon_head.png"
+    "16": "favicon-Photoroom.png",
+    "32": "favicon-Photoroom.png",
+    "128": "favicon-Photoroom.png"
   },
   "background": {
     "service_worker": "background.js",
