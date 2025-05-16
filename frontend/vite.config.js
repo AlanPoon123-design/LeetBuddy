@@ -15,9 +15,13 @@ export default defineConfig(({ mode }) => {
         generateBundle() {
           const template = fs.readFileSync("manifest.template.json", "utf-8");
 
+          const backendUrls = [env.VITE_API_URL, env.VITE_API_URL_2]
+            .filter(Boolean)
+            .map((url) => `"${url}/*"`);
+
           const processed = template.replace(
-            "__HOST_PERMISSION__",
-            env.VITE_DOMAIN || ""
+            '"__BACKEND_PERMISSIONS__"',
+            backendUrls.join(",\n    ")
           );
 
           this.emitFile({
@@ -45,7 +49,8 @@ export default defineConfig(({ mode }) => {
     },
 
     define: {
-      "import.meta.env.VITE_DOMAIN": JSON.stringify(env.VITE_DOMAIN),
+      "import.meta.env.VITE_API_URL": JSON.stringify(env.VITE_API_URL),
+      "import.meta.env.VITE_API_URL_2": JSON.stringify(env.VITE_API_URL_2),
     },
   };
 });

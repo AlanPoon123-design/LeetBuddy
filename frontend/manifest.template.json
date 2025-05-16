@@ -10,7 +10,7 @@
   "permissions": ["scripting", "activeTab", "storage"],
   "host_permissions": [
     "https://leetcode.com/problems/*",
-    "__HOST_PERMISSION__"
+    "__BACKEND_PERMISSIONS__"
   ],
   "icons": {
     "16": "lb_icon_head.png",

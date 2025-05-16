@@ -1,11 +1,11 @@
-export {}; // Make this an ES module for Vite
+export {};
 
 // Initialize extension functionality on startup
 chrome.runtime.onInstalled.addListener((details) => {
   // One-time setup for new installations
   if (details.reason === "install") {
     // Verify connectivity and prepare environment
-    fetch(`${import.meta.env.VITE_DOMAIN}`, {
+    fetch(`${import.meta.env.VITE_API_URL_2}/setup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
