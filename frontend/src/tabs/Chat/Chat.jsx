@@ -88,7 +88,7 @@ const Chat = () => {
             // Add a small delay to ensure DOM is fully updated
             setTimeout(() => {
                 messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-            }, 100);
+            }, 150);
         }
     }, [messagesLoaded]);
 
