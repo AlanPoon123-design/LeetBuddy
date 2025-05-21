@@ -15,6 +15,7 @@ const Chat = () => {
     const [canEdit, setCanEdit] = useState(true);
     const [sessionKey, setSessionKey] = useState(null);
     const [problem, setProblem] = useState("");
+    const [messagesLoaded, setMessagesLoaded] = useState(false);
     const messagesEndRef = useRef(null);  // Reference to the last message
 
     // base64 image context
@@ -62,6 +63,7 @@ const Chat = () => {
             if (savedMessages && savedMessages.length > 0) {
                 setMessages(savedMessages);
             }
+            setMessagesLoaded(true); // Set flag when messages are loaded
         };
         loadMessages();
     }, []);
@@ -72,6 +74,23 @@ const Chat = () => {
             storage.save(messages);
         }
     }, [messages]);
+
+    // Scroll to bottom when messages change
+    useEffect(() => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [messages]);
+
+    // Scroll to bottom when messages are loaded from storage (on extension reopen)
+    useEffect(() => {
+        if (messagesLoaded && messagesEndRef.current) {
+            // Add a small delay to ensure DOM is fully updated
+            setTimeout(() => {
+                messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+            }, 100);
+        }
+    }, [messagesLoaded]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -196,12 +215,6 @@ const Chat = () => {
         // Update input text
         setInputtext(e.target.value);
     }
-
-    useEffect(() => {
-        if (messagesEndRef.current) {
-            messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-        }
-    }, [messages]);
 
     return (
         <div className="main-display-box h-full flex flex-col" data-gramm="false" data-gramm_editor="false">
