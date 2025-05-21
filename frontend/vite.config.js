@@ -15,13 +15,11 @@ export default defineConfig(({ mode }) => {
         generateBundle() {
           const template = fs.readFileSync("manifest.template.json", "utf-8");
 
-          const backendUrls = [env.VITE_API_URL, env.VITE_API_URL_2]
-            .filter(Boolean)
-            .map((url) => `"${url}/*"`);
+          const backendUrl = env.VITE_APP_URL ? `"${env.VITE_APP_URL}/*"` : "";
 
           const processed = template.replace(
             '"__BACKEND_PERMISSIONS__"',
-            backendUrls.join(",\n    ")
+            backendUrl
           );
 
           this.emitFile({
@@ -49,8 +47,7 @@ export default defineConfig(({ mode }) => {
     },
 
     define: {
-      "import.meta.env.VITE_API_URL": JSON.stringify(env.VITE_API_URL),
-      "import.meta.env.VITE_API_URL_2": JSON.stringify(env.VITE_API_URL_2),
+      "import.meta.env.VITE_APP_URL": JSON.stringify(env.VITE_APP_URL),
     },
   };
 });

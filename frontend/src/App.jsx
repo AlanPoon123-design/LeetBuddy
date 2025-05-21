@@ -98,7 +98,16 @@ function App() {
             style={{ width: "200px", height: "auto" }}
           />
           <p className="text-xl">
-          ✦ Open a LeetCode question to get started! ✦
+            ✦ Open a{" "}
+            <a
+              href="https://leetcode.com/problems/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#f89f1b] underline hover:text-[#e58a0e] transition-opacity"
+            >
+              LeetCode
+            </a>{" "}
+            question to get started! ✦
           </p>
         </div>
       )}
