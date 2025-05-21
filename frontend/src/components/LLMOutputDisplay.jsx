@@ -36,6 +36,28 @@ const InlineCode = memo(({ children }) => (
   </code>
 ));
 
+// Check if message was previously being animated
+const getLastAnimatedMessage = async () => {
+  if (typeof chrome !== 'undefined' && chrome.storage) {
+    return new Promise((resolve) => {
+      chrome.storage.local.get(['lastAnimatedMessage'], (result) => {
+        resolve(result.lastAnimatedMessage || null);
+      });
+    });
+  } else {
+    return Promise.resolve(localStorage.getItem('lastAnimatedMessage'));
+  }
+};
+
+// Store the message being animated
+const setLastAnimatedMessage = (message) => {
+  if (typeof chrome !== 'undefined' && chrome.storage) {
+    chrome.storage.local.set({ lastAnimatedMessage: message });
+  } else {
+    localStorage.setItem('lastAnimatedMessage', message);
+  }
+};
+
 const LLMOutputDisplay = ({ output = "", isNewMessage = false }) => {
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -62,10 +84,26 @@ const LLMOutputDisplay = ({ output = "", isNewMessage = false }) => {
       return;
     }
 
+    // Check if this message was previously being animated
+    getLastAnimatedMessage().then(lastMessage => {
+      if (lastMessage === sanitizedOutput) {
+        // If it matches the last animated message, show it without animation
+        setDisplayedText(sanitizedOutput);
+        setIsTyping(false);
+      } else {
+        // Otherwise animate it and store it
+        setLastAnimatedMessage(sanitizedOutput);
+        animateText(sanitizedOutput);
+      }
+    });
+
+  }, [output, isNewMessage]);
+
+  const animateText = (text) => {
     setIsTyping(true);
     setDisplayedText("");
-
-    const words = sanitizedOutput.match(/(\s*[^\s]+|\n+|\s+)/g) || [];
+    
+    const words = text.match(/(\s*[^\s]+|\n+|\s+)/g) || [];
     let currentText = "";
     let currentIndex = 0;
 
@@ -100,7 +138,7 @@ const LLMOutputDisplay = ({ output = "", isNewMessage = false }) => {
         clearInterval(typewriterRef.current);
       }
     };
-  }, [output, isNewMessage]);
+  };
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text).then(
