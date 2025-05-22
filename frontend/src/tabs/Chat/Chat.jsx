@@ -171,7 +171,7 @@ const Chat = () => {
         }
     
         setBase64image("");
-        fetch(import.meta.env.VITE_APP_URL + `/LLM`, {
+        fetch(import.meta.env.VITE_APP_URL + `/api/LLM`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
