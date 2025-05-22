@@ -4,7 +4,7 @@ export {};
 chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason === "install") {
     chrome.tabs.create({
-      url: `${import.meta.env.VITE_APP_URL}/guide`,
+      url: `${import.meta.env.VITE_APP_URL}/guide?installed=true`,
     });
   }
 });
