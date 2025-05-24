@@ -178,7 +178,7 @@ const Chat = () => {
                 'Accept': 'application/json'
             },
             body: JSON.stringify(body),
-            credentials: 'include',
+            credentials: 'omit',
         })
             .then(res => res.json())
             .then(result => {
