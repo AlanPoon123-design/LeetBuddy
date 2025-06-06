@@ -233,8 +233,8 @@ const Chat = () => {
                     <p>Clear</p>
                 </button>
             </div>
-            <div className="flex-grow pb-2 pl-2 pr-2 flex flex-col gap-2">
-                <div className="messages-display flex flex-col gap-4 flex-grow h-40">
+            <div className="grow pb-2 pl-2 pr-2 flex flex-col gap-2">
+                <div className="messages-display flex flex-col gap-4 grow h-40">
                     {messages.length > 0 ? (
                         messages.map((message, index) => (
                             <div key={index} className="text-sm flex flex-col">

@@ -85,7 +85,7 @@ function App() {
           
         </div>
         
-        <div className="mt-1 flex-grow">
+        <div className="mt-1 grow">
           {page == "chat" && <Chat/>}
           {page == "draw" && <Whiteboard/>}
         </div>

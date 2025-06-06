@@ -181,11 +181,6 @@ textarea::placeholder {
     background-color: var(--color-gray-5);
 }
 
-.syntaxhighlighter {
-    margin-top: 0 !important; 
-    margin-bottom: 0 !important;
-}
-
 .code-block-container {
     border-radius: var(--corner-radius);
     overflow: hidden;

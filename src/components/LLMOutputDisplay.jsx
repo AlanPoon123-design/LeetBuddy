@@ -1,37 +1,55 @@
-import React, { useState, useEffect, useRef, useMemo, memo } from "react";
+import { useState, useEffect, useRef, useMemo, memo } from "react";
 import ReactMarkdown from "react-markdown";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { Prism, Highlight, themes } from '../utils/prism-languages';
 import remarkGfm from "remark-gfm";
 import { FaCopy } from "react-icons/fa6";
 
-// Memoized code block component
-const CodeBlock = memo(({ language, children, onCopy, copySuccess }) => (
-  <div className="code-block-container mt-2 mb-2">
-    <div className="code-block-header flex justify-between items-center p-2">
-      <div className="text-xs">{language}</div>
-      <button
-        onClick={() => onCopy(String(children))}
-        className="copy-button rounded text-xs flex items-center gap-1"
+// Memoized code block component using prism-react-renderer
+const CodeBlock = memo(({ language, children, onCopy, copySuccess }) => {
+  const code = String(children).trim();
+  
+  return (
+    <div className="code-block-container mt-2 mb-2">
+      <div className="code-block-header flex justify-between items-center p-2">
+        <div className="text-xs">{language}</div>
+        <button
+          onClick={() => onCopy(code)}
+          className="copy-button rounded-sm text-xs flex items-center gap-1"
+        >
+          <FaCopy className="text-xs" />
+          <p className="text-xs">
+            {!copySuccess ? "Copy" : copySuccess}
+          </p>
+        </button>
+      </div>
+      <Highlight
+        prism={Prism}
+        theme={themes.vsDark}
+        code={code}
+        language={language || "text"}
       >
-        <FaCopy className="text-xs" />
-        <p className="text-xs">
-          {!copySuccess ? "Copy" : copySuccess}
-        </p>
-      </button>
+        {({ className, style, tokens, getLineProps, getTokenProps }) => (
+          <pre 
+            className={`${className}`}
+            style={{ ...style, margin: 0, padding: '0.75rem', overflow: 'auto' }}
+          >
+            {tokens.map((line, i) => (
+              <div key={i} {...getLineProps({ line })}>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token })} />
+                ))}
+              </div>
+            ))}
+          </pre>
+        )}
+      </Highlight>
     </div>
-    <SyntaxHighlighter
-      className="syntaxhighlighter"
-      style={materialDark}
-      language={language}
-      children={String(children).replace(/\n$/, "")}
-    />
-  </div>
-));
+  );
+});
 
 // Memoized inline code component
-const InlineCode = memo(({ children }) => (
-  <code className="px-1.5 py-0.5 mx-0.5 bg-gray-900 rounded text-sm">
+const InlineCode = memo(({ children, className }) => (
+  <code className={className || "px-1.5 py-0.5 mx-0.5 bg-gray-900 rounded-sm text-sm"}>
     {children}
   </code>
 ));
@@ -169,10 +187,13 @@ const LLMOutputDisplay = ({ output = "", isNewMessage = false }) => {
           language={match[1]}
           onCopy={copyToClipboard}
           copySuccess={copySuccess}
-          children={children}
-        />
+        >
+          {children}
+        </CodeBlock>
       ) : (
-        <InlineCode {...props}>{children}</InlineCode>
+        <InlineCode className={className} {...props}>
+          {children}
+        </InlineCode>
       );
     },
   }), [copySuccess]);

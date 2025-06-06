@@ -1,11 +1,29 @@
 /* index.css for global sytling */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=MedievalSharp&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=MedievalSharp&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap')
+layer(base);
 
 /* Tailwind imports */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+    font-family: "Inter";
+    color: var(--color-white-1);
+  }
+}
 
 /* Global variables here - like colours, standard padding*/
 :root {
@@ -37,19 +55,6 @@
  --corner-radius: 8px;
  --transitionTime: 0s;
 }
-
-* {
-    margin: 0px;
-    box-sizing: border-box;
-    font-family: "Inter";
-    color: var(--color-white-1);
-  }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
 
 .app {
     background-color: var(--color-black-1);
