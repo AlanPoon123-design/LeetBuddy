@@ -200,12 +200,13 @@ const LLMOutputDisplay = ({ output = "", isNewMessage = false }) => {
 
   return (
     <div className={`transition-opacity duration-200 ${isTyping ? 'opacity-90' : 'opacity-100'}`}>
-      <ReactMarkdown
-        children={displayedText}
-        className="space-y-4"
-        components={components}
-        remarkPlugins={[remarkGfm]}
-      />
+      <div className="space-y-4">
+        <ReactMarkdown
+          children={displayedText}
+          components={components}
+          remarkPlugins={[remarkGfm]}
+        />
+      </div>
     </div>
   );
 };
