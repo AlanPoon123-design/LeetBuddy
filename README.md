@@ -30,4 +30,5 @@ LeetBuddy was inspired by the struggles we faced as students in a software backg
 - **Lucian Cheng:** Frontend, API use, hosting
 - **Nicholas Jano:** Backend, API use, redis/docker setup
 - **Nathan Chan:** Frontend, input forms
+- **Alan Poon:** Backend
 - **Rafay Nasir:** Artwork
